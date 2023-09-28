@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,7 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-export var login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.signup = exports.login = void 0;
+var login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, email, password, user, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -53,7 +56,8 @@ export var login = function (req, res) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); };
-export var signup = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+exports.login = login;
+var signup = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, name_1, email, password, user, error_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -72,3 +76,4 @@ export var signup = function (req, res) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
+exports.signup = signup;

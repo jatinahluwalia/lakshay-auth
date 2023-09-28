@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,11 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import validator from "validator";
-import jwt from "jsonwebtoken";
-var userSchema = new mongoose.Schema({
+Object.defineProperty(exports, "__esModule", { value: true });
+var mongoose_1 = require("mongoose");
+var bcrypt_1 = require("bcrypt");
+var validator_1 = require("validator");
+var jsonwebtoken_1 = require("jsonwebtoken");
+var userSchema = new mongoose_1.default.Schema({
     name: { type: String, required: true },
     email: {
         type: String,
@@ -57,10 +59,10 @@ userSchema.statics.login = function (email, password) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!validator.isEmail(email)) {
+                    if (!validator_1.default.isEmail(email)) {
                         throw new Error("Not a valid email");
                     }
-                    if (!validator.isStrongPassword(password)) {
+                    if (!validator_1.default.isStrongPassword(password)) {
                         throw new Error("Please enter a strong password");
                     }
                     return [4 /*yield*/, this.findOne({ email: email })];
@@ -69,11 +71,11 @@ userSchema.statics.login = function (email, password) {
                     if (!user) {
                         throw new Error("User does not exist.");
                     }
-                    return [4 /*yield*/, bcrypt.compare(user.password, password)];
+                    return [4 /*yield*/, bcrypt_1.default.compare(user.password, password)];
                 case 2:
                     isPassOK = _a.sent();
                     if (isPassOK) {
-                        token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || "lakshayauth");
+                        token = jsonwebtoken_1.default.sign({ _id: user._id }, process.env.JWT_SECRET || "lakshayauth");
                         return [2 /*return*/, { token: token, email: email, name: user.name }];
                     }
                     throw new Error("Password not correct");
@@ -90,10 +92,10 @@ userSchema.statics.signup = function (name, email, password) {
                     if (!name) {
                         throw new Error("Please enter a name.");
                     }
-                    if (!validator.isEmail(email)) {
+                    if (!validator_1.default.isEmail(email)) {
                         throw new Error("Please enter a valid email.");
                     }
-                    if (!validator.isStrongPassword(password)) {
+                    if (!validator_1.default.isStrongPassword(password)) {
                         throw new Error("Please enter a strong password.");
                     }
                     return [4 /*yield*/, this.findOne({ email: email })];
@@ -102,20 +104,20 @@ userSchema.statics.signup = function (name, email, password) {
                     if (emailExists) {
                         throw new Error("User already exists. Please login");
                     }
-                    return [4 /*yield*/, bcrypt.genSalt(10)];
+                    return [4 /*yield*/, bcrypt_1.default.genSalt(10)];
                 case 2:
                     salt = _a.sent();
-                    return [4 /*yield*/, bcrypt.hash(password, salt)];
+                    return [4 /*yield*/, bcrypt_1.default.hash(password, salt)];
                 case 3:
                     hashedPassword = _a.sent();
                     return [4 /*yield*/, this.create({ name: name, email: email, hashedPassword: hashedPassword })];
                 case 4:
                     user = _a.sent();
-                    token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || "lakshayauth");
+                    token = jsonwebtoken_1.default.sign({ _id: user._id }, process.env.JWT_SECRET || "lakshayauth");
                     return [2 /*return*/, { name: name, email: email, token: token }];
             }
         });
     });
 };
-var User = mongoose.model("User", userSchema);
-export default User;
+var User = mongoose_1.default.model("User", userSchema);
+exports.default = User;
