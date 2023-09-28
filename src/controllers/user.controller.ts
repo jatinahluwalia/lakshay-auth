@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import User from "../models/user.model";
 
 export const login = async (req: Request, res: Response) => {
   try {
