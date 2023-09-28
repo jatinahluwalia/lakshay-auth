@@ -6,9 +6,10 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(cors({ origin: true }));
-app.use("/api/user", userRouter);
+app.use("/api", userRouter);
 
 connectToDB();
 
@@ -21,5 +22,3 @@ app.get("/", (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);
 });
-
-export default app;
