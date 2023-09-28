@@ -1,19 +1,23 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var dotenv_1 = require("dotenv");
-var db_js_1 = require("./config/db.js");
-var user_routes_js_1 = require("./routes/user.routes.js");
-var cors_1 = require("cors");
+const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const db_js_1 = __importDefault(require("./config/db.js"));
+const user_routes_js_1 = __importDefault(require("./routes/user.routes.js"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
-var app = (0, express_1.default)();
+const app = (0, express_1.default)();
 app.use((0, cors_1.default)({ origin: true }));
 app.use("/api/user", user_routes_js_1.default);
 (0, db_js_1.default)();
-var PORT = process.env.PORT || 4000;
-app.get("/", function (_req, res) {
+const PORT = process.env.PORT || 4000;
+app.get("/", (_req, res) => {
     res.json("Working");
 });
-app.listen(PORT, function () {
-    console.log("Listening to port ".concat(PORT));
+app.listen(PORT, () => {
+    console.log(`Listening to port ${PORT}`);
 });
+exports.default = app;
