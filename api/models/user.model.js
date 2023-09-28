@@ -60,7 +60,7 @@ userSchema.statics.signup = function (name, email, password) {
         if (!validator_1.default.isStrongPassword(password)) {
             throw new Error("Please enter a strong password.");
         }
-        const emailExists = yield this.findOne({ email });
+        const emailExists = yield this.find({ email });
         if (emailExists) {
             throw new Error("User already exists. Please login");
         }

@@ -19,10 +19,10 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { email, password } = req.body;
         // @ts-ignore
         const user = yield user_model_js_1.default.login(email, password);
-        return user;
+        return res.json(user);
     }
     catch (error) {
-        res.status(500).json({ error: error.message });
+        return res.status(500).json({ error: error.message });
     }
 });
 exports.login = login;
@@ -31,10 +31,10 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { name, email, password } = req.body;
         // @ts-ignore
         const user = yield user_model_js_1.default.signup(name, email, password);
-        return user;
+        return res.json(user);
     }
     catch (error) {
-        res.status(500).json({ error: error.message });
+        return res.status(500).json({ error: error.message });
     }
 });
 exports.signup = signup;
