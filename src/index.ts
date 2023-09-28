@@ -5,19 +5,19 @@ import userRouter from "./routes/user.routes.js";
 import cors from "cors";
 
 dotenv.config();
-connectToDB();
 const app = express();
 app.use(cors());
 app.use("/api", userRouter);
 
 const PORT = process.env.PORT || 4000;
 
+connectToDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Listening to port ${PORT}`);
+  });
+});
 app.get("/", (_req, res) => {
   res.json("Working");
-});
-
-app.listen(PORT, () => {
-  console.log(`Listening to port ${PORT}`);
 });
 
 export default app;
